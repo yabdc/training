@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		E7CB1DD81B27CC7A004BDB16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DD71B27CC7A004BDB16 /* main.m */; };
 		E7CB1DDB1B27CC7A004BDB16 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */; };
-		E7CB1DDE1B27CC7A004BDB16 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DDD1B27CC7A004BDB16 /* ViewController.m */; };
 		E7CB1DE11B27CC7A004BDB16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DDF1B27CC7A004BDB16 /* Main.storyboard */; };
 		E7CB1DE31B27CC7A004BDB16 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DE21B27CC7A004BDB16 /* Images.xcassets */; };
 		E7CB1DE61B27CC7A004BDB16 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DE41B27CC7A004BDB16 /* LaunchScreen.xib */; };
 		E7CB1DF21B27CC7A004BDB16 /* trainingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DF11B27CC7A004BDB16 /* trainingTests.m */; };
+		E7CB1E001B27CDA5004BDB16 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB1DFF1B27CDA5004BDB16 /* libsqlite3.0.dylib */; };
+		E7CB1E031B27E0FF004BDB16 /* SLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1E021B27E0FF004BDB16 /* SLoginViewController.m */; };
+		E7CB1E0B1B27EAA9004BDB16 /* libiMessageUtility.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB1E0A1B27EAA9004BDB16 /* libiMessageUtility.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +34,17 @@
 		E7CB1DD71B27CC7A004BDB16 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E7CB1DD91B27CC7A004BDB16 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E7CB1DDC1B27CC7A004BDB16 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E7CB1DDD1B27CC7A004BDB16 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E7CB1DE01B27CC7A004BDB16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7CB1DE21B27CC7A004BDB16 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E7CB1DE51B27CC7A004BDB16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E7CB1DEB1B27CC7A004BDB16 /* trainingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = trainingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CB1DF01B27CC7A004BDB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7CB1DF11B27CC7A004BDB16 /* trainingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = trainingTests.m; sourceTree = "<group>"; };
+		E7CB1DFF1B27CDA5004BDB16 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		E7CB1E011B27E0FF004BDB16 /* SLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLoginViewController.h; sourceTree = "<group>"; };
+		E7CB1E021B27E0FF004BDB16 /* SLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLoginViewController.m; sourceTree = "<group>"; };
+		E7CB1E041B27E283004BDB16 /* SDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDefine.h; sourceTree = "<group>"; };
+		E7CB1E0A1B27EAA9004BDB16 /* libiMessageUtility.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiMessageUtility.a; path = "StringLibrary/Debug-iphonesimulator/libiMessageUtility.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7CB1E0B1B27EAA9004BDB16 /* libiMessageUtility.a in Frameworks */,
+				E7CB1E001B27CDA5004BDB16 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +70,8 @@
 		E7CB1DC91B27CC7A004BDB16 = {
 			isa = PBXGroup;
 			children = (
+				E7CB1E0A1B27EAA9004BDB16 /* libiMessageUtility.a */,
+				E7CB1DFF1B27CDA5004BDB16 /* libsqlite3.0.dylib */,
 				E7CB1DD41B27CC7A004BDB16 /* training */,
 				E7CB1DEE1B27CC7A004BDB16 /* trainingTests */,
 				E7CB1DD31B27CC7A004BDB16 /* Products */,
@@ -83,9 +92,10 @@
 			children = (
 				E7CB1DD91B27CC7A004BDB16 /* AppDelegate.h */,
 				E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */,
-				E7CB1DDC1B27CC7A004BDB16 /* ViewController.h */,
-				E7CB1DDD1B27CC7A004BDB16 /* ViewController.m */,
 				E7CB1DDF1B27CC7A004BDB16 /* Main.storyboard */,
+				E7CB1E011B27E0FF004BDB16 /* SLoginViewController.h */,
+				E7CB1E021B27E0FF004BDB16 /* SLoginViewController.m */,
+				E7CB1E041B27E283004BDB16 /* SDefine.h */,
 				E7CB1DE21B27CC7A004BDB16 /* Images.xcassets */,
 				E7CB1DE41B27CC7A004BDB16 /* LaunchScreen.xib */,
 				E7CB1DD51B27CC7A004BDB16 /* Supporting Files */,
@@ -219,8 +229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7CB1DDE1B27CC7A004BDB16 /* ViewController.m in Sources */,
 				E7CB1DDB1B27CC7A004BDB16 /* AppDelegate.m in Sources */,
+				E7CB1E031B27E0FF004BDB16 /* SLoginViewController.m in Sources */,
 				E7CB1DD81B27CC7A004BDB16 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +312,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -338,6 +349,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -346,9 +358,23 @@
 		E7CB1DF61B27CC7A004BDB16 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/StringLibrary/include\"",
+				);
 				INFOPLIST_FILE = training/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StringLibrary/Debug-iphonesimulator",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -356,9 +382,23 @@
 		E7CB1DF71B27CC7A004BDB16 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/StringLibrary/include\"",
+				);
 				INFOPLIST_FILE = training/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StringLibrary/Debug-iphonesimulator",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
