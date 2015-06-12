@@ -69,7 +69,7 @@
     m_oldFrameOfmainView=_m_mainView.frame;
     NSLog(@"viewWillLayoutSubviews");
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:m_aryMessageItem.count-1 inSection: 0];
-    [self.m_TableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+//    [self.m_TableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,10 +83,13 @@
     [self.m_TableView reloadData];
 }
 - (IBAction)sendBtnAction:(UIButton *)sender {
-    [[iMessageUtility sharedManager] sendMsgWithContent:_m_messageTextView.text ContentType:0 bySequenceID:nil toPhone:@"0000001"];
-    self.m_messageTextView.text=@"";
-    [self.m_messageTextView resignFirstResponder];
-    [self.m_messageTextView setFrame:m_oldframeOfmessageTextView];
+    if (_m_messageTextView.text.length>0) {
+        [[iMessageUtility sharedManager] sendMsgWithContent:_m_messageTextView.text ContentType:0 bySequenceID:nil toPhone:@"0000001"];
+        self.m_messageTextView.text=nil;
+        [self.m_messageTextView resignFirstResponder];
+        [self.m_messageTextView setFrame:m_oldframeOfmessageTextView];
+    }
+
 }
 - (IBAction)otherBtnAction:(UIButton *)sender {
 }
@@ -106,6 +109,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     m_MessageItem = m_aryMessageItem[indexPath.row];
     cell.textLabel.text= m_MessageItem.Content;
