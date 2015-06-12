@@ -9,7 +9,6 @@
 #import <iMessageUtility.h>
 
 #import "SLoginViewController.h"
-#import "SMessageViewController.h"
 #import "SDefine.h"
 
 @interface SLoginViewController ()<iMessageUtilityDelegte>
@@ -27,26 +26,6 @@
     self.m_passwordTextField.text=TestPassWord;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
-}
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    NSLog(@"viewDidAppear");
-}
--(void)viewWillDisappear:(BOOL)animated{
-    NSLog(@"viewWillDisappear");
-    [super viewWillDisappear:animated];
-}
--(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"viewDidDisappear");
-    [super viewDidDisappear:animated];
-}
--(void)dealloc{
-    NSLog(@"dealloc");
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -58,13 +37,7 @@
 
 #pragma mark - Login methods
 -(void)loginSuccess:(NSDictionary *)userInfoDic{
-//    NSLog(@"%@",userInfoDic);
-    [IMInfoUtility setIMInfoTag:IMAccount   tagValue:userInfoDic[@"Phone"]];
-    [IMInfoUtility setIMInfoTag:IMNickname  tagValue:userInfoDic[@"Nickname"]];
-    [IMInfoUtility setIMInfoTag:IMGUID      tagValue:userInfoDic[@"Guid"]];
-    [IMInfoUtility setIMInfoTag:IMClientID  tagValue:userInfoDic [@"ClientID"]];
-    UINavigationController *loginNavigationController =[self.storyboard instantiateViewControllerWithIdentifier:@"loginNav"];
-    [self presentViewController:loginNavigationController animated:YES completion:nil];
+    NSLog(@"%@",userInfoDic);
 }
 
 -(void)loginFail:(NSString *)strErrorMsg{
@@ -80,6 +53,14 @@
                                           otherButtonTitles: nil];
     [alert show];
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
