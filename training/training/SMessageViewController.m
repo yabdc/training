@@ -56,7 +56,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [[iMessageUtility sharedManager] setDelegate:self];
     
-    m_aryMessageItem=[[iMessageUtility sharedManager] queryChatsFromTableByAccount:@"0000001" isGroup:NO withLimit:20];
+    m_aryMessageItem=[[iMessageUtility sharedManager] queryChatsFromTableByAccount:@"0000001" isGroup:NO withLimit:100];
     [[iMessageUtility sharedManager] checkChatTableIsExisted:@"0000002" isGroup:NO];
     [[iMessageUtility sharedManager] getChatListByPhoneFromWS:@"0000001"];
 
