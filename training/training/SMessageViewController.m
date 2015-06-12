@@ -14,11 +14,11 @@
 @interface SMessageViewController ()<iMessageUtilityDelegte,UITextViewDelegate>
 {
     CGSize m_kbSize;
-    CGRect m_oldFrameOfmainView;
+    CGRect m_oldFrameOfmainView;            //TextView的舊frame
     NSMutableArray *m_aryMessageItem;
     ChatMessageItem *m_MessageItem;
     CGRect m_oldframe;
-    
+    CGRect m_oldframeOfmessageTextView;     //TextView的初始frame
 }
 @property (weak, nonatomic) IBOutlet UITableView *m_TableView;
 @property (weak, nonatomic) IBOutlet UIView *m_mainView;
@@ -65,6 +65,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
+    m_oldframeOfmessageTextView=_m_messageTextView.frame;
     m_oldFrameOfmainView=_m_mainView.frame;
     NSLog(@"viewWillLayoutSubviews");
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:m_aryMessageItem.count-1 inSection: 0];
@@ -78,11 +79,16 @@
 
 - (void)messageNotification:(NSNotification *)notification{
     NSLog(@"%@",notification);
-
+    m_aryMessageItem=[[iMessageUtility sharedManager] queryChatsFromTableByAccount:@"0000001" isGroup:NO withLimit:20];
+    [self.m_TableView reloadData];
 }
 - (IBAction)sendBtnAction:(UIButton *)sender {
+    [[iMessageUtility sharedManager] sendMsgWithContent:_m_messageTextView.text ContentType:0 bySequenceID:nil toPhone:@"0000001"];
+    self.m_messageTextView.text=@"";
+    [self.m_messageTextView resignFirstResponder];
+    [self.m_messageTextView setFrame:m_oldframeOfmessageTextView];
 }
-- (IBAction)otherBtnAction:(id)sender {
+- (IBAction)otherBtnAction:(UIButton *)sender {
 }
 #pragma mark - Table view data source
 
