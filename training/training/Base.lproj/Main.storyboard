@@ -94,7 +94,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="sendBtnAction:" destination="44g-go-0ga" eventType="touchUpInside" id="VOA-DL-SgE"/>
+                                                    <action selector="sendAction:" destination="44g-go-0ga" eventType="touchUpInside" id="oXR-OX-bYm"/>
                                                 </connections>
                                             </button>
                                         </subviews>
