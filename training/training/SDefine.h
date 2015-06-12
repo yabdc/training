@@ -11,5 +11,7 @@
 
 #define TestUserName @"0000002";
 #define TestPassWord @"0000002";
+#define KeyBoardMoveTime    0.25      //鍵盤移動時間
+#define MaxHeightOfTextView 100.0f
 
 #endif
