@@ -30,7 +30,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="String" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTo-P8-IHN">
                                 <rect key="frame" x="139" y="68" width="46" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vm5-FQ-lhZ">
@@ -167,11 +167,60 @@
                         <outlet property="m_TableView" destination="eHc-IL-V1F" id="PBD-dZ-v2k"/>
                         <outlet property="m_mainView" destination="WPg-3O-Lu4" id="3uf-OW-icV"/>
                         <outlet property="m_messageTextView" destination="mAA-d2-LKt" id="y4i-bD-etQ"/>
+                        <outlet property="m_sendView" destination="e7A-bQ-U5V" id="A1Z-SU-b8i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Uf-PX-lEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="900" y="220"/>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="QGf-OR-kF0">
+            <objects>
+                <viewController storyboardIdentifier="SPhotoView" id="EG2-OA-CJw" customClass="SPhotoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HAr-HF-fqw"/>
+                        <viewControllerLayoutGuide type="bottom" id="aHS-XG-C3J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="r7D-kf-KMj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="y14-40-FPV">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SIN-Ww-MUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1330" y="703"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="CD8-UU-hu9">
+            <objects>
+                <viewController storyboardIdentifier="SMapView" id="329-iZ-nWD" customClass="SMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Qk-ic-yrx"/>
+                        <viewControllerLayoutGuide type="bottom" id="EA5-Jh-hgX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="znm-l4-LE9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eeo-0y-ka7">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12v-ab-HK8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1330" y="-52"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n0g-Dw-3Fd">
@@ -190,7 +239,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uA-dq-YZw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="475" y="220"/>
+            <point key="canvasLocation" x="487" y="220"/>
         </scene>
     </scenes>
     <resources>

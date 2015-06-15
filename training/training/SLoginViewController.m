@@ -12,6 +12,8 @@
 #import "SMessageViewController.h"
 #import "SDefine.h"
 
+static NSString *s_SLoginNavigationName=@"loginNav";
+
 @interface SLoginViewController ()<iMessageUtilityDelegte>
 @property (weak, nonatomic) IBOutlet UITextField *m_userTextField;
 @property (weak, nonatomic) IBOutlet UITextField *m_passwordTextField;
@@ -63,7 +65,7 @@
     [IMInfoUtility setIMInfoTag:IMNickname  tagValue:userInfoDic[@"Nickname"]];
     [IMInfoUtility setIMInfoTag:IMGUID      tagValue:userInfoDic[@"Guid"]];
     [IMInfoUtility setIMInfoTag:IMClientID  tagValue:userInfoDic [@"ClientID"]];
-    UINavigationController *loginNavigationController =[self.storyboard instantiateViewControllerWithIdentifier:@"loginNav"];
+    UINavigationController *loginNavigationController =[self.storyboard instantiateViewControllerWithIdentifier:s_SLoginNavigationName];
     [self presentViewController:loginNavigationController animated:YES completion:nil];
 }
 
