@@ -9,7 +9,8 @@
 #import "SPhotoViewController.h"
 
 @interface SPhotoViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *m_promptLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *m_imageView;
 @end
 
 @implementation SPhotoViewController
@@ -17,11 +18,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.m_imageView.image=_g_image;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)okAction:(id)sender {
+    
+}
+- (IBAction)cancelAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

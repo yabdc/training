@@ -7,7 +7,10 @@
 //
 
 #import "SCustomView.h"
+#import "SMapViewController.h"
+#import "SPhotoViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+
 
 static NSString *s_SMapViewControllerName=@"SMapView";
 static NSString *s_SPhotoViewControllerName=@"SPhotoView";
@@ -94,17 +97,8 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 }
 
 - (IBAction)markerPress:(id)sender {
-    
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"touchesBegan:withEvent:");
-    [self hideView];
-    [super touchesBegan:touches withEvent:event];
-}
-
--(void)setKeyBoardHeight:(CGFloat)Height{
-    keyboardHeight=Height;
+    SMapViewController *SMapViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SMapViewControllerName];
+    [viewcontroller.navigationController pushViewController:SMapViewController animated:YES];
 }
 
 #pragma mark --addimage
@@ -124,6 +118,20 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
     picker.delegate = nil;
     image=info[UIImagePickerControllerOriginalImage];
     [viewcontroller dismissViewControllerAnimated:YES completion:nil];
+    SPhotoViewController *SPhotoViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SPhotoViewControllerName];
+    SPhotoViewController.g_image=info[UIImagePickerControllerOriginalImage];    [viewcontroller presentViewController:SPhotoViewController animated:YES completion:nil];
+}
+
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSLog(@"touchesBegan:withEvent:");
+    [self hideView];
+    [super touchesBegan:touches withEvent:event];
+}
+
+-(void)setKeyBoardHeight:(CGFloat)Height{
+    keyboardHeight=Height;
 }
 
 @end

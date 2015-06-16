@@ -10,4 +10,7 @@
 
 @interface SPhotoViewController : UIViewController
 
+@property (strong,nonatomic) UIImage *g_image;
+@property (assign) BOOL g_bMode;
+
 @end

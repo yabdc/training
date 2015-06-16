@@ -80,8 +80,6 @@
     NSLog(@"viewWillLayoutSubviews");
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:m_aryMessageItem.count-1 inSection: 0];
     [self.m_TableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,14 +107,10 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    // Return the number of rows in the section.
     return m_aryMessageItem.count;
 }
 
@@ -125,8 +119,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     m_MessageItem = m_aryMessageItem[indexPath.row];
     cell.textLabel.text= m_MessageItem.Content;
-    
-
     return cell;
 }
 
@@ -177,48 +169,13 @@
     if (size.height >= MaxHeightOfTextView)
     {
         size.height = MaxHeightOfTextView;
-        textView.scrollEnabled = YES;   // 允许滚动
+        textView.scrollEnabled = YES;
     }
     else
     {
-        textView.scrollEnabled = NO;    // 不允许滚动，当textview的大小足以容纳它的text的时候，需要设置scrollEnabed为NO，否则会出现光标乱滚动的情况
+        textView.scrollEnabled = NO;
     }
-//    _m_sendView.frame = CGRectMake(m_oldFrameOfsendView.origin.x, sad-size.height, m_oldFrameOfsendView.size.width, size.height);
     textView.frame = CGRectMake(frame.origin.x, distance-size.height, frame.size.width, size.height);
-
-//
-//    CGFloat nowHeight = [SMessageViewController heightForString:textView.text fontSize:textView.font.pointSize andWidth:textView.frame.size.width];
-//    
-//    NSLog(@"%f",nowHeight);
-//    if (nowHeight<MaxHeightOfTextView) {
-//        if (nowHeight>textView.frame.size.height&&nowHeight>m_oldframe.size.height) {
-//            m_oldframe.size.height=nowHeight;
-//            CGFloat distance = textView.frame.size.height-nowHeight;
-//            m_oldFrameOfsendView.origin.y+=distance;
-//            m_oldFrameOfsendView.size.height-=distance;
-//            [_m_sendView setFrame:m_oldFrameOfsendView];
-//            [textView setFrame:m_oldframe];
-//            NSLog(@"____________________________________________");
-//            NSLog(@"%f",distance);
-//            NSLog(@"____________________________________________");
-//            NSLog(@"%@",textView);
-//            NSLog(@"____________________________________________");
-//            NSLog(@"%@",_m_sendView);
-//            NSLog(@"____________________________________________");
-//            
-//        }else{
-//            m_oldframe.size.height=nowHeight;
-//            CGFloat distance = textView.frame.size.height-nowHeight;
-//            m_oldFrameOfsendView.origin.y+=distance;
-//            m_oldFrameOfsendView.size.height-=distance;
-//            [_m_sendView setFrame:m_oldFrameOfsendView];
-//           
-//            
-//
-//            textView.frame=m_oldframe;
-//
-//        }
-//    }
 }
 
 - (BOOL)textView: (UITextView *)textview shouldChangeTextInRange: (NSRange)range replacementText: (NSString *)text {
