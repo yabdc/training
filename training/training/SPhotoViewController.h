@@ -11,6 +11,6 @@
 @interface SPhotoViewController : UIViewController
 
 @property (strong,nonatomic) UIImage *g_image;
-@property (assign) BOOL g_bMode;
+@property (assign) BOOL g_bDownloadMode;          //YES，下載模式。NO，預覽模式。
 
 @end

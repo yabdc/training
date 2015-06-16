@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f3R-uS-Gir">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -186,7 +186,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="y14-40-FPV">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y14-40-FPV">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
                         </subviews>
@@ -198,11 +198,15 @@
                             <constraint firstItem="y14-40-FPV" firstAttribute="top" secondItem="r7D-kf-KMj" secondAttribute="top" constant="64" id="zO9-ET-yzl"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="1QX-Xj-NDK"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="m_MKMapView" destination="y14-40-FPV" id="EZy-XO-Ieo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SIN-Ww-MUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1330" y="714"/>
+            <point key="canvasLocation" x="2142" y="714"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="CD8-UU-hu9">
@@ -233,7 +237,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="4q0-E3-z6s" secondAttribute="height" multiplier="1:1" id="2wQ-tl-dCn"/>
                                         </constraints>
-                                        <state key="normal" image="Tick" backgroundImage="Grid"/>
+                                        <state key="normal" image="Tick"/>
                                         <connections>
                                             <action selector="okAction:" destination="329-iZ-nWD" eventType="touchUpInside" id="ybz-jS-hfX"/>
                                         </connections>
@@ -243,7 +247,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="nMg-6j-8Q3" secondAttribute="height" multiplier="1:1" id="505-CI-JrO"/>
                                         </constraints>
-                                        <state key="normal" image="Cancel" backgroundImage="Grid">
+                                        <state key="normal" image="Cancel">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -281,7 +285,9 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="m_cancelButton" destination="nMg-6j-8Q3" id="aBx-Zd-K06"/>
                         <outlet property="m_imageView" destination="Eeo-0y-ka7" id="O2a-CH-k07"/>
+                        <outlet property="m_okButton" destination="4q0-E3-z6s" id="GgY-w5-vMS"/>
                         <outlet property="m_promptLabel" destination="UbD-5V-dFF" id="iA4-0P-Wgu"/>
                     </connections>
                 </viewController>
@@ -308,11 +314,29 @@
             </objects>
             <point key="canvasLocation" x="487" y="220"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3KR-Rd-KbH">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f3R-uS-Gir" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="i3M-o4-9Ml">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="EG2-OA-CJw" kind="relationship" relationship="rootViewController" id="bgW-VD-k35"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8kM-7W-uYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1330" y="714"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Add" width="48" height="48"/>
         <image name="Cancel" width="50" height="50"/>
-        <image name="Grid" width="48" height="48"/>
         <image name="Send" width="48" height="48"/>
         <image name="Tick" width="50" height="50"/>
     </resources>

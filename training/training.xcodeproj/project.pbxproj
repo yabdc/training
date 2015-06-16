@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E774B6851B3004740089BF79 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E774B6841B3004740089BF79 /* Images.xcassets */; };
 		E7803C7D1B2ECCFB00DD3E3D /* SMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7803C7C1B2ECCFB00DD3E3D /* SMapViewController.m */; };
 		E7803C801B2ECD1E00DD3E3D /* SPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7803C7F1B2ECD1E00DD3E3D /* SPhotoViewController.m */; };
 		E7CB1DD81B27CC7A004BDB16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DD71B27CC7A004BDB16 /* main.m */; };
 		E7CB1DDB1B27CC7A004BDB16 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */; };
 		E7CB1DE11B27CC7A004BDB16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DDF1B27CC7A004BDB16 /* Main.storyboard */; };
-		E7CB1DE31B27CC7A004BDB16 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DE21B27CC7A004BDB16 /* Images.xcassets */; };
 		E7CB1DE61B27CC7A004BDB16 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DE41B27CC7A004BDB16 /* LaunchScreen.xib */; };
 		E7CB1DF21B27CC7A004BDB16 /* trainingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DF11B27CC7A004BDB16 /* trainingTests.m */; };
 		E7CB1E001B27CDA5004BDB16 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CB1DFF1B27CDA5004BDB16 /* libsqlite3.0.dylib */; };
@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E774B6841B3004740089BF79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E7803C7B1B2ECCFB00DD3E3D /* SMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMapViewController.h; sourceTree = "<group>"; };
 		E7803C7C1B2ECCFB00DD3E3D /* SMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMapViewController.m; sourceTree = "<group>"; };
 		E7803C7E1B2ECD1E00DD3E3D /* SPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPhotoViewController.h; sourceTree = "<group>"; };
@@ -46,7 +47,6 @@
 		E7CB1DD91B27CC7A004BDB16 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E7CB1DE01B27CC7A004BDB16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E7CB1DE21B27CC7A004BDB16 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E7CB1DE51B27CC7A004BDB16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E7CB1DEB1B27CC7A004BDB16 /* trainingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = trainingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CB1DF01B27CC7A004BDB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,8 +127,8 @@
 				E7FFB8F61B2E999500B7CE07 /* SCustomView.h */,
 				E7FFB8F71B2E999500B7CE07 /* SCustomView.m */,
 				E7FFB8F91B2E99BB00B7CE07 /* SCustomView.xib */,
-				E7CB1DE21B27CC7A004BDB16 /* Images.xcassets */,
 				E7CB1DE41B27CC7A004BDB16 /* LaunchScreen.xib */,
+				E774B6841B3004740089BF79 /* Images.xcassets */,
 				E7CB1DD51B27CC7A004BDB16 /* Supporting Files */,
 			);
 			path = training;
@@ -241,9 +241,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7CB1DE11B27CC7A004BDB16 /* Main.storyboard in Resources */,
+				E774B6851B3004740089BF79 /* Images.xcassets in Resources */,
 				E7FFB8FA1B2E99BB00B7CE07 /* SCustomView.xib in Resources */,
 				E7CB1DE61B27CC7A004BDB16 /* LaunchScreen.xib in Resources */,
-				E7CB1DE31B27CC7A004BDB16 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

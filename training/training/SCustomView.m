@@ -15,7 +15,7 @@
 static NSString *s_SMapViewControllerName=@"SMapView";
 static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 
-@interface SCustomView()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface SCustomView()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>
 {
     UIViewController *viewcontroller;
     UIImage *image;
@@ -84,25 +84,29 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 
 
 - (IBAction)cameraPress:(id)sender {
+    [self hideView];
     UIImagePickerController *pickerImageView =[[UIImagePickerController alloc] init];
     pickerImageView.delegate=self;
     //如果要使用相機要先測試iDevice是否有相機
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         pickerImageView.sourceType=UIImagePickerControllerSourceTypeCamera;
-    }else if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-        pickerImageView.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-        pickerImageView.mediaTypes =@[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
         [viewcontroller presentViewController:pickerImageView animated:YES completion:nil];
+    }else if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+        UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"Your device don't have camera!" message:@"Please Choose one..." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Go Album", nil];
+        [alertView show];
     }
+    
 }
 
 - (IBAction)markerPress:(id)sender {
+    [self hideView];
     SMapViewController *SMapViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SMapViewControllerName];
     [viewcontroller.navigationController pushViewController:SMapViewController animated:YES];
 }
 
 #pragma mark --addimage
 - (IBAction)photoPress:(id)sender {
+    [self hideView];
     UIImagePickerController *pickerImageView =[[UIImagePickerController alloc] init];
     pickerImageView.delegate=self;
     pickerImageView.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
@@ -134,4 +138,28 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
     keyboardHeight=Height;
 }
 
+#pragma mark UIAlertViewDelegate
+-(void)alertView:(UIAlertView * )alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            [self showAlbum];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)showAlbum{
+    UIImagePickerController *pickerImageView =[[UIImagePickerController alloc] init];
+    pickerImageView.delegate=self;
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+        pickerImageView.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        pickerImageView.mediaTypes =@[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
+        
+        [viewcontroller presentViewController:pickerImageView animated:YES completion:nil];
+    }
+}
 @end

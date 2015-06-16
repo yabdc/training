@@ -99,7 +99,6 @@
     [self.m_messageTextView setFrame:m_initialFrameOfmessageTextView];
 }
 - (IBAction)otherBtnAction:(UIButton *)sender {
-    
     [vc showView];
     NSLog(@"%@",vc);
     

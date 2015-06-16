@@ -7,9 +7,11 @@
 //
 
 #import "SMapViewController.h"
-
-@interface SMapViewController ()
-
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+@interface SMapViewController ()<MKMapViewDelegate>
+@property (weak, nonatomic) IBOutlet MKMapView *m_MKMapView;
+@property (strong,nonatomic) CLLocationManager *locationManager;
 @end
 
 @implementation SMapViewController
@@ -17,21 +19,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.locationManager=[[CLLocationManager alloc] init];
+    [self.locationManager requestWhenInUseAuthorization];
+    MKCoordinateRegion regin =MKCoordinateRegionMakeWithDistance(self.m_MKMapView.userLocation.location.coordinate, 2000.0f, 2000.0f);
+    [self.m_MKMapView setRegion:regin animated:YES];
+    self.m_MKMapView.delegate=self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark -- MKMapView Delegate
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    mapView.centerCoordinate =userLocation.location.coordinate;
 }
-*/
 
 @end
