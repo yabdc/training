@@ -101,6 +101,7 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 - (IBAction)markerPress:(id)sender {
     [self hideView];
     SMapViewController *SMapViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SMapViewControllerName];
+    SMapViewController.g_bBrowseMode=NO;
     [viewcontroller.navigationController pushViewController:SMapViewController animated:YES];
 }
 

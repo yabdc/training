@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f3R-uS-Gir">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -189,24 +189,77 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y14-40-FPV">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
+                            <view alpha="0.49999999999999961" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDv-Q1-HpI">
+                                <rect key="frame" x="16" y="240" width="288" height="46"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="傳送位置" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfl-fd-ccD">
+                                        <rect key="frame" x="0.0" y="4" width="288" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="288" id="a1q-m4-NlI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mk4-ah-yw9">
+                                        <rect key="frame" x="0.0" y="24" width="288" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Hfl-fd-ccD" firstAttribute="top" secondItem="EDv-Q1-HpI" secondAttribute="top" constant="4" id="7Rk-kS-VPz"/>
+                                    <constraint firstAttribute="height" constant="46" id="GiC-6K-iXx"/>
+                                    <constraint firstItem="mk4-ah-yw9" firstAttribute="leading" secondItem="EDv-Q1-HpI" secondAttribute="leading" id="Nft-yf-9uq"/>
+                                    <constraint firstAttribute="trailing" secondItem="mk4-ah-yw9" secondAttribute="trailing" id="a2W-Hn-EYO"/>
+                                    <constraint firstAttribute="bottom" secondItem="mk4-ah-yw9" secondAttribute="bottom" constant="1" id="hAo-gb-7Kl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hfl-fd-ccD" secondAttribute="trailing" id="oXK-fU-lBW"/>
+                                    <constraint firstItem="mk4-ah-yw9" firstAttribute="top" secondItem="EDv-Q1-HpI" secondAttribute="top" constant="24" id="r5r-2P-Qdu"/>
+                                    <constraint firstItem="Hfl-fd-ccD" firstAttribute="leading" secondItem="EDv-Q1-HpI" secondAttribute="leading" id="yQ7-1F-Hog"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hfl-fd-ccD" secondAttribute="bottom" constant="21" id="zrJ-3G-5hK"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mapmarker" translatesAutoresizingMaskIntoConstraints="NO" id="cc7-Ed-Yd8">
+                                <rect key="frame" x="145" y="286" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cc7-Ed-Yd8" secondAttribute="height" multiplier="1:1" id="Awb-UH-goW"/>
+                                    <constraint firstAttribute="width" constant="30" id="xOm-Fj-ljr"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="cc7-Ed-Yd8" firstAttribute="top" secondItem="EDv-Q1-HpI" secondAttribute="bottom" id="0uk-Ao-edu"/>
                             <constraint firstAttribute="trailing" secondItem="y14-40-FPV" secondAttribute="trailing" id="Gy7-gI-XIX"/>
+                            <constraint firstItem="cc7-Ed-Yd8" firstAttribute="centerX" secondItem="y14-40-FPV" secondAttribute="centerX" id="NNn-bG-o16"/>
+                            <constraint firstAttribute="centerX" secondItem="EDv-Q1-HpI" secondAttribute="centerX" id="OhV-DD-q2N"/>
+                            <constraint firstItem="EDv-Q1-HpI" firstAttribute="leading" secondItem="r7D-kf-KMj" secondAttribute="leading" constant="16" id="Oss-KA-EK2"/>
                             <constraint firstItem="y14-40-FPV" firstAttribute="leading" secondItem="r7D-kf-KMj" secondAttribute="leading" id="WDR-bp-JAn"/>
                             <constraint firstItem="aHS-XG-C3J" firstAttribute="top" secondItem="y14-40-FPV" secondAttribute="bottom" id="Ycb-oX-uoG"/>
+                            <constraint firstItem="cc7-Ed-Yd8" firstAttribute="centerY" secondItem="y14-40-FPV" secondAttribute="centerY" constant="-15" id="r50-bB-Wx5"/>
+                            <constraint firstAttribute="trailing" secondItem="EDv-Q1-HpI" secondAttribute="trailing" constant="16" id="rQZ-2S-ajY"/>
                             <constraint firstItem="y14-40-FPV" firstAttribute="top" secondItem="r7D-kf-KMj" secondAttribute="top" constant="64" id="zO9-ET-yzl"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="OhV-DD-q2N"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="1QX-Xj-NDK"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="m_MKMapView" destination="y14-40-FPV" id="EZy-XO-Ieo"/>
+                        <outlet property="m_addressLabel" destination="mk4-ah-yw9" id="LdN-sI-zs4"/>
+                        <outlet property="m_markView" destination="cc7-Ed-Yd8" id="mwL-6Y-NK2"/>
+                        <outlet property="m_pinView" destination="EDv-Q1-HpI" id="SlO-EF-lGv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SIN-Ww-MUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2142" y="714"/>
+            <point key="canvasLocation" x="1330" y="716"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="CD8-UU-hu9">
@@ -229,7 +282,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbD-5V-dFF">
                                         <rect key="frame" x="74" y="16" width="172" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4q0-E3-z6s" userLabel="OK">
@@ -314,29 +367,11 @@
             </objects>
             <point key="canvasLocation" x="487" y="220"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="3KR-Rd-KbH">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f3R-uS-Gir" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="i3M-o4-9Ml">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="EG2-OA-CJw" kind="relationship" relationship="rootViewController" id="bgW-VD-k35"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8kM-7W-uYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1330" y="714"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Add" width="48" height="48"/>
         <image name="Cancel" width="50" height="50"/>
+        <image name="Mapmarker" width="100" height="100"/>
         <image name="Send" width="48" height="48"/>
         <image name="Tick" width="50" height="50"/>
     </resources>

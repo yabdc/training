@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <ChatMessageItem.h>
 @interface SMapViewController : UIViewController
-
+@property(strong,nonatomic) ChatMessageItem *g_receiveChatMessageIten;
+@property (assign) BOOL g_bBrowseMode;          //YES，瀏覽模式。NO，傳送地址模式。
 @end
