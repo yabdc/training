@@ -10,10 +10,9 @@
 #import "SMapViewController.h"
 #import "SPhotoViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "SDefine.h"
 
 
-static NSString *s_SMapViewControllerName=@"SMapView";
-static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 
 @interface SCustomView()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>
 {
@@ -56,11 +55,11 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 -(void)showView{
     float scw=[UIScreen mainScreen].bounds.size.width;
     float adbvh=self.frame.size.height;
-    float navh=viewcontroller.navigationController.navigationBar.frame.size.height;
+   
     
     [UIView transitionWithView:self duration:0.4 options:UIViewAnimationOptionTransitionNone animations: ^{
         CGRect newset;
-        newset =CGRectMake(0, navh+20+keyboardHeight, scw, adbvh);
+        newset =CGRectMake(0, keyboardHeight, scw, adbvh);
         
         self.frame=newset;
     }completion:^(BOOL finished){
@@ -124,6 +123,7 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
     image=info[UIImagePickerControllerOriginalImage];
     [viewcontroller dismissViewControllerAnimated:YES completion:nil];
     SPhotoViewController *SPhotoViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SPhotoViewControllerName];
+    SPhotoViewController.g_bDownloadMode=NO;
     SPhotoViewController.g_image=info[UIImagePickerControllerOriginalImage];    [viewcontroller presentViewController:SPhotoViewController animated:YES completion:nil];
 }
 

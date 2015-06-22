@@ -15,6 +15,7 @@
 #define MaxHeightOfTextView 80.0f
 #define TestChat @"0000001";
 
-
+static NSString *s_SMapViewControllerName=@"SMapView";
+static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 
 #endif
