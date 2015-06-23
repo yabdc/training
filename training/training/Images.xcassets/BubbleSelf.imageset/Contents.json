@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "bubbleMine.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "bubbleMine@2x.png"
+      "filename" : "BubbleMine@2x.png"
     },
     {
       "idiom" : "universal",

@@ -7,12 +7,14 @@
 //
 
 #import "SPhotoViewController.h"
-#import <iMessageUtility.h>
-@interface SPhotoViewController ()
+#import <iMFileDownloadUtility.h>
+@interface SPhotoViewController ()<iMDownloadDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *m_promptLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *m_imageView;
+@property (weak, nonatomic) IBOutlet UIProgressView *m_progressView;
 @property (weak, nonatomic) IBOutlet UIButton *m_okButton;
 @property (weak, nonatomic) IBOutlet UIButton *m_cancelButton;
+@property (strong, nonatomic) iMFileDownloadUtility *m_fileDownload;
 @end
 
 @implementation SPhotoViewController
@@ -31,6 +33,14 @@
     self.m_cancelButton.layer.borderWidth=3;
     self.m_cancelButton.layer.borderColor=[[UIColor colorWithRed:0.366 green:0.481 blue:0.314 alpha:1.000] CGColor];
     
+    if (_g_bDownloadMode==YES) {
+        self.m_fileDownload = [[iMFileDownloadUtility alloc] init];
+        self.m_fileDownload.delegate = self;
+        self.m_okButton.enabled = NO;
+    }else{
+        self.m_progressView.hidden=YES;
+    }
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -42,6 +52,15 @@
         [self.m_okButton setImage:[UIImage imageNamed:@"Tick"] forState:UIControlStateNormal];
     }
 }
+
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (_g_bDownloadMode==YES) {
+    [self.m_fileDownload downloadPictureName:self.g_MessageItem.FunBody withChatID:self.g_MessageItem.ChatID];
+    }
+}
+
 - (void)messageNotification:(NSNotification *)notification{
     NSLog(@"%@",notification);
 }
@@ -53,14 +72,36 @@
 
 - (IBAction)okAction:(id)sender {
     if (_g_bDownloadMode==YES) {
-        
+        UIImageWriteToSavedPhotosAlbum ( self.m_imageView.image, nil, nil, nil );
+        [self dismissViewControllerAnimated:YES completion:nil];
     }else{
-    [[iMessageUtility sharedManager] sendMsgWithImage:_g_image bySequenceID:nil account:@"0000001" isGroup:NO];
-    [self dismissViewControllerAnimated:YES completion:nil];
+        [[iMessageUtility sharedManager] sendMsgWithImage:_g_image bySequenceID:nil account:@"0000001" isGroup:NO];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 - (IBAction)cancelAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)iMDownloadProgress:(NSNumber *)progress{
+    self.m_progressView.hidden = NO;
+    
+    self.m_progressView.progress = [progress floatValue];
+    
+    if (1.0 == [progress floatValue]) {
+        self.m_progressView.hidden = YES;
+        self.m_okButton.enabled = YES;
+    }
+}
+- (void)iMDownloadFailWithError:(NSString *)strError{
+    
+}
+- (void)iMDownloadResponse:(NSData *)rtnFileData{
+    
+    UIImage *image = [UIImage imageWithData:rtnFileData];
+    
+    [self.m_imageView  setImage:image];
+    
 }
 
 /*

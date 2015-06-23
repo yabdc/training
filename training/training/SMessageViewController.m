@@ -7,14 +7,14 @@
 //
 #import <iMessageUtility.h>
 #import <ChatMessageItem.h>
-
+#import "MLEmojiLabel.h"
 
 #import "SMessageViewController.h"
 #import "SDefine.h"
 #import "SCustomView.h"
 #import "SPhotoViewController.h"
 
-@interface SMessageViewController ()<iMessageUtilityDelegte,UITextViewDelegate>
+@interface SMessageViewController ()<iMessageUtilityDelegte,UITextViewDelegate,MLEmojiLabelDelegate>
 {
     CGSize m_kbSize;
     CGRect m_oldFrameOfmainView;
@@ -150,62 +150,49 @@
             [subview removeFromSuperview];
         }
     }
-    
-//    UIView *view =[[UIView alloc] initWithFrame:cell.frame];
-//    [view setBackgroundColor:[UIColor greenColor]];
-//    view.layer.cornerRadius=10;
-    
-    UIImage *img=[UIImage imageNamed:@"BubbleSelf"];
-    img=[img stretchableImageWithLeftCapWidth:15 topCapHeight:12];
-    UIImageView *imgView=[[UIImageView alloc]initWithImage:img];
-    imgView.userInteractionEnabled=YES;
+    UIImage *img=nil;
+    UIImageView *imgView=nil;
     m_MessageItem = m_aryMessageItem[indexPath.row];
-//    m_tapCellGestureRecognizer=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCell:)];
-//    m_tapCellGestureRecognizer.numberOfTapsRequired= 1;
+    if ([m_MessageItem.isMySpeaking isEqualToString: @"1"]) {
+        img=[UIImage imageNamed:@"BubbleSelf"];
+        UIEdgeInsets insets = UIEdgeInsetsMake(15, 25, 30, 25);
+        img=[img resizableImageWithCapInsets:insets];
+    }else{
+        img=[UIImage imageNamed:@"BubbleSomeone"];
+        UIEdgeInsets insets = UIEdgeInsetsMake(15, 25, 30, 25);
+        img=[img resizableImageWithCapInsets:insets];
+    }
+    imgView=[[UIImageView alloc]initWithImage:img];
+    imgView.userInteractionEnabled=YES;
+    
+
     
     
     if ([m_MessageItem.ContentType isEqualToString: @"1" ]) {
-//        UIImageView *image=[[UIImageView alloc] initWithImage:[UIImage imageWithData:[self hexStringToData:m_MessageItem.Content]]];
-//        CGRect imageframe=image.frame;
-//        if (imageframe.size.height>200) {
-//            imageframe.size.height=200;
-//        }
-//        if (imageframe.size.width>200) {
-//            imageframe.size.width=200;
-//        }
-//        imageframe.origin.y=10;
-//        imageframe.origin.x=10;
-//        [image setFrame:imageframe];
-//        [imgView addSubview:image];
-//        
-//        [imgView setFrame:CGRectMake(15, 12, imageframe.size.width+30, imageframe.size.height+24)];
-//        UIButton *imageButton=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, imgView.frame.size.width, imgView.frame.size.height)];
-//        
-//        
-//        [imageButton addTarget:self action:@selector(imageButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        UIButton *imageButton = [[UIButton alloc] initWithFrame:CGRectMake(10 , 10, 100.0f, 100.0f)];
+        UIButton *imageButton = [[UIButton alloc] initWithFrame:CGRectMake(LeftPaddingMessageContent , TopPaddingMessageContent, 100.0f, 100.0f)];
         imageButton.contentMode = UIViewContentModeScaleAspectFit;
         [imageButton setBackgroundImage:[UIImage imageWithData:[self hexStringToData:m_MessageItem.Content]] forState:UIControlStateNormal];
         [imageButton sizeToFit];
         [imageButton addTarget:self action:@selector(imageButtonPress:) forControlEvents:UIControlEventTouchUpInside];
         [imgView addSubview:imageButton];
         
-        [imgView setFrame:CGRectMake(15, 12, imageButton.frame.size.width+30, imageButton.frame.size.height+24)];
+        [imgView setFrame:CGRectMake(15, 10, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
 
     }else if([m_MessageItem.ContentType isEqualToString: @"0" ]){
         
-        UILabel *textLabel=[[UILabel alloc] init];
+        MLEmojiLabel *textLabel=[[MLEmojiLabel alloc] init];
+        textLabel.emojiDelegate=self;
         textLabel.text=m_MessageItem.Content;
+        textLabel.isNeedAtAndPoundSign=YES;
+        [textLabel setEmojiText:m_MessageItem.Content];
         textLabel.font=[UIFont systemFontOfSize:14.0f];
         textLabel.numberOfLines=0;
         [textLabel sizeThatFits:CGSizeMake(MAXFLOAT, 0)];
-        CGSize a=[textLabel sizeThatFits:CGSizeMake(240, MAXFLOAT)];
-        [textLabel setFrame:CGRectMake(10, 10,a.width, a.height)];
+        CGSize a=[textLabel sizeThatFits:CGSizeMake(MaxWidthOfLabel, MAXFLOAT)];
+        [textLabel setFrame:CGRectMake(LeftPaddingMessageContent, TopPaddingMessageContent,a.width, a.height)];
         
         [imgView addSubview:textLabel];
-        [imgView setFrame:CGRectMake(15, 12, textLabel.frame.size.width+30, textLabel.frame.size.height+24)];
+        [imgView setFrame:CGRectMake(10, 10, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
     }else{
         NSArray *aryContent = [m_MessageItem.Content componentsSeparatedByString:@"//"];
         NSString *strAddress = aryContent[0];
@@ -214,11 +201,11 @@
         textLabel.font=[UIFont systemFontOfSize:14.0f];
         textLabel.numberOfLines=0;
         [textLabel sizeThatFits:CGSizeMake(MAXFLOAT, 0)];
-        CGSize a=[textLabel sizeThatFits:CGSizeMake(240, MAXFLOAT)];
-        [textLabel setFrame:CGRectMake(10, 10,a.width, a.height)];
+        CGSize a=[textLabel sizeThatFits:CGSizeMake(MaxWidthOfLabel, MAXFLOAT)];
+        [textLabel setFrame:CGRectMake(20, 15,a.width, a.height)];
         [imgView addSubview:textLabel];
-        [imgView setFrame:CGRectMake(15, 12, textLabel.frame.size.width+30, textLabel.frame.size.height+24)];
-//        [imgView addGestureRecognizer:m_tapCellGestureRecognizer];
+        [imgView setFrame:CGRectMake(10, 10, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
+
         
     }
     
@@ -233,10 +220,16 @@
     return cell;
 }
 
--(void)imageButtonPress:(UIButton *)sender{
+-(void)imageButtonPress:(UIButton *)button{
     SPhotoViewController *SPhotoViewController =[self.storyboard instantiateViewControllerWithIdentifier:s_SPhotoViewControllerName];
     SPhotoViewController.g_bDownloadMode=YES;
-    SPhotoViewController.g_image=sender.currentBackgroundImage;
+    SPhotoViewController.g_image=button.currentBackgroundImage;
+    
+    //然后使用indexPathForCell方法，就得到indexPath了~
+    UITableViewCell *cell = (UITableViewCell *)button.superview.superview.superview;
+    NSIndexPath *indexPath = [self.m_TableView indexPathForCell:cell];
+    
+    SPhotoViewController.g_MessageItem=m_aryMessageItem[indexPath.row];
     [self presentViewController:SPhotoViewController animated:YES completion:nil];
 }
 
@@ -387,5 +380,52 @@
         [returnData appendBytes:&whole_byte length:1];
     }
     return (NSData *)returnData;
+}
+
+
+
+- (void)mlEmojiLabel:(MLEmojiLabel*)emojiLabel didSelectLink:(NSString*)link withType:(MLEmojiLabelLinkType)type
+{
+    switch(type){
+        case MLEmojiLabelLinkTypeURL:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
+            break;
+        case MLEmojiLabelLinkTypePhoneNumber:{
+            NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"tel:+%@",link]];
+            
+            if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+                [[UIApplication sharedApplication] openURL:phoneUrl];
+            } else
+            {
+                UIAlertView *calert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Call facility is not available!!!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                [calert show];
+                NSLog(@"%@",link);
+            }
+            break;
+        }
+        case MLEmojiLabelLinkTypeEmail:{
+            NSString *strUrl = [NSString stringWithFormat: @"mailto:%@",link];
+            NSString *strEmail = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
+            NSURL *strEmailUrl = [NSURL URLWithString:strEmail];
+            if ([[UIApplication sharedApplication] canOpenURL:strEmailUrl]) {
+                [[UIApplication sharedApplication]  openURL: strEmailUrl];
+            }else{
+                UIAlertView *calert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email facility is not available!!!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                [calert show];
+                NSLog(@"%@",link);
+            }
+            break;
+        }
+        case MLEmojiLabelLinkTypeAt:
+            
+            break;
+        case MLEmojiLabelLinkTypePoundSign:
+            
+            break;
+        default:
+            
+            break;
+    }
+    
 }
 @end

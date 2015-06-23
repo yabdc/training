@@ -9,12 +9,14 @@
 #ifndef training_SDefine_h
 #define training_SDefine_h
 
-#define TestUserName @"0000002";
-#define TestPassWord @"0000002";
+#define TestUserName @"0000002"
+#define TestPassWord @"0000002"
 #define KeyBoardMoveTime    0.25      //鍵盤移動時間
 #define MaxHeightOfTextView 80.0f
-#define TestChat @"0000001";
-
+#define TestChat @"0000001"
+#define TopPaddingMessageContent 15
+#define LeftPaddingMessageContent 20
+#define MaxWidthOfLabel 240
 static NSString *s_SMapViewControllerName=@"SMapView";
 static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 

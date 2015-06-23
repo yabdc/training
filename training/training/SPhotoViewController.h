@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iMessageUtility.h>
 
 @interface SPhotoViewController : UIViewController
 
 @property (strong,nonatomic) UIImage *g_image;
 @property (assign) BOOL g_bDownloadMode;          //YES，下載模式。NO，預覽模式。
-
+@property (strong, nonatomic)ChatMessageItem *g_MessageItem;
 @end
