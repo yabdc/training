@@ -66,6 +66,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="m_loginButton" destination="Vm5-FQ-lhZ" id="7Wv-rQ-mxJ"/>
                         <outlet property="m_passwordTextField" destination="sFr-Y7-rBa" id="ef2-Yf-WUY"/>
                         <outlet property="m_userTextField" destination="chf-Z1-CtT" id="RwI-dW-7Cf"/>
                     </connections>
@@ -165,7 +166,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="110" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eHc-IL-V1F">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="110" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eHc-IL-V1F">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -195,7 +196,9 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="0000001" id="E2Z-z5-rl4"/>
+                    <navigationItem key="navigationItem" title="0000001" id="E2Z-z5-rl4">
+                        <barButtonItem key="leftBarButtonItem" title="登出" id="EdS-66-eZL"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="m_TableView" destination="eHc-IL-V1F" id="PBD-dZ-v2k"/>
@@ -262,15 +265,30 @@
                                     <constraint firstAttribute="width" constant="30" id="xOm-Fj-ljr"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZc-XV-BUX">
+                                <rect key="frame" x="264" y="512" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vZc-XV-BUX" secondAttribute="height" multiplier="1:1" id="6Mx-RE-znZ"/>
+                                    <constraint firstAttribute="width" constant="48" id="gOV-2f-5n2"/>
+                                </constraints>
+                                <state key="normal" image="Flag">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setFlagCenter:" destination="EG2-OA-CJw" eventType="touchUpInside" id="XiQ-Yt-Mui"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cc7-Ed-Yd8" firstAttribute="top" secondItem="EDv-Q1-HpI" secondAttribute="bottom" id="0uk-Ao-edu"/>
+                            <constraint firstItem="aHS-XG-C3J" firstAttribute="top" secondItem="vZc-XV-BUX" secondAttribute="bottom" constant="8" id="CG8-9u-1UJ"/>
                             <constraint firstAttribute="trailing" secondItem="y14-40-FPV" secondAttribute="trailing" id="Gy7-gI-XIX"/>
                             <constraint firstItem="cc7-Ed-Yd8" firstAttribute="centerX" secondItem="y14-40-FPV" secondAttribute="centerX" id="NNn-bG-o16"/>
                             <constraint firstAttribute="centerX" secondItem="EDv-Q1-HpI" secondAttribute="centerX" id="OhV-DD-q2N"/>
                             <constraint firstItem="EDv-Q1-HpI" firstAttribute="leading" secondItem="r7D-kf-KMj" secondAttribute="leading" constant="16" id="Oss-KA-EK2"/>
                             <constraint firstItem="y14-40-FPV" firstAttribute="leading" secondItem="r7D-kf-KMj" secondAttribute="leading" id="WDR-bp-JAn"/>
+                            <constraint firstAttribute="trailing" secondItem="vZc-XV-BUX" secondAttribute="trailing" constant="8" id="XSY-P6-B4h"/>
                             <constraint firstItem="aHS-XG-C3J" firstAttribute="top" secondItem="y14-40-FPV" secondAttribute="bottom" id="Ycb-oX-uoG"/>
                             <constraint firstItem="cc7-Ed-Yd8" firstAttribute="centerY" secondItem="y14-40-FPV" secondAttribute="centerY" constant="-15" id="r50-bB-Wx5"/>
                             <constraint firstAttribute="trailing" secondItem="EDv-Q1-HpI" secondAttribute="trailing" constant="16" id="rQZ-2S-ajY"/>
@@ -287,6 +305,7 @@
                     <connections>
                         <outlet property="m_MKMapView" destination="y14-40-FPV" id="EZy-XO-Ieo"/>
                         <outlet property="m_addressLabel" destination="mk4-ah-yw9" id="LdN-sI-zs4"/>
+                        <outlet property="m_flagButton" destination="vZc-XV-BUX" id="FHc-Rr-w3q"/>
                         <outlet property="m_markView" destination="cc7-Ed-Yd8" id="mwL-6Y-NK2"/>
                         <outlet property="m_pinView" destination="EDv-Q1-HpI" id="SlO-EF-lGv"/>
                     </connections>
@@ -414,6 +433,7 @@
     <resources>
         <image name="Add" width="48" height="48"/>
         <image name="Cancel" width="50" height="50"/>
+        <image name="Flag" width="40" height="40"/>
         <image name="Mapmarker" width="100" height="100"/>
         <image name="Send" width="48" height="48"/>
         <image name="Tick" width="50" height="50"/>

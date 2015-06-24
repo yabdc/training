@@ -57,7 +57,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if (_g_bDownloadMode==YES) {
-    [self.m_fileDownload downloadPictureName:self.g_MessageItem.FunBody withChatID:self.g_MessageItem.ChatID];
+    [self.m_fileDownload downloadPictureName:self.g_photoMessageItem.FunBody withChatID:self.g_photoMessageItem.ChatID];
     }
 }
 

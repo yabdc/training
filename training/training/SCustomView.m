@@ -26,7 +26,7 @@
 @end
 @implementation SCustomView
 
-- (instancetype)initWithvc:(UIViewController *)vc name:(NSString *)name{
+- (instancetype)initWithvc:(UIViewController *)vc{
     viewcontroller=vc;
     float vcw=vc.view.bounds.size.width;
     float vch=vc.view.bounds.size.height;
@@ -57,7 +57,7 @@
     float adbvh=self.frame.size.height;
    
     
-    [UIView transitionWithView:self duration:0.4 options:UIViewAnimationOptionTransitionNone animations: ^{
+    [UIView transitionWithView:self duration:AnimationTime options:UIViewAnimationOptionTransitionNone animations: ^{
         CGRect newset;
         newset =CGRectMake(0, keyboardHeight, scw, adbvh);
         
@@ -71,7 +71,7 @@
 -(void)hideView{
     float scw=[UIScreen mainScreen].bounds.size.width;
     float adbvh=self.frame.size.height;
-    [UIView transitionWithView:self duration:0.4 options:UIViewAnimationOptionTransitionNone animations: ^{
+    [UIView transitionWithView:self duration:AnimationTime options:UIViewAnimationOptionTransitionNone animations: ^{
         CGRect newset;
         newset =CGRectMake(0, -adbvh, scw, adbvh);
         //

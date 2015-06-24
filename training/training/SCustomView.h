@@ -10,7 +10,7 @@
 
 @interface SCustomView : UIView
 
-- (instancetype)initWithvc:(UIViewController *)vc name:(NSString *)name;
+- (instancetype)initWithvc:(UIViewController *)vc;
 -(void)showView;
 -(void)hideView;
 -(void)setKeyBoardHeight:(CGFloat)Height;

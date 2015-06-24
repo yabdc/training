@@ -13,5 +13,5 @@
 
 @property (strong,nonatomic) UIImage *g_image;
 @property (assign) BOOL g_bDownloadMode;          //YES，下載模式。NO，預覽模式。
-@property (strong, nonatomic)ChatMessageItem *g_MessageItem;
+@property (strong, nonatomic)ChatMessageItem *g_photoMessageItem;
 @end

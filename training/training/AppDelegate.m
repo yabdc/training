@@ -7,7 +7,7 @@
 //
 
 #import <iMessageUtility.h>
-
+#import "SDefine.h"
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -15,10 +15,6 @@
 @end
 
 @implementation AppDelegate
-static NSString *const s_AppId = @"FA00IM_iOS";
-static NSString *const s_ServerSite = @"smuat.megatime.com.tw/WebServiceSsl";
-
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

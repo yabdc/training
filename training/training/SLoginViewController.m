@@ -12,11 +12,12 @@
 #import "SMessageViewController.h"
 #import "SDefine.h"
 
-static NSString *s_SLoginNavigationName=@"loginNav";
+
 
 @interface SLoginViewController ()<iMessageUtilityDelegte>
 @property (weak, nonatomic) IBOutlet UITextField *m_userTextField;
 @property (weak, nonatomic) IBOutlet UITextField *m_passwordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *m_loginButton;
 
 @end
 
@@ -29,25 +30,6 @@ static NSString *s_SLoginNavigationName=@"loginNav";
     self.m_passwordTextField.text=TestPassWord;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
-}
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    NSLog(@"viewDidAppear");
-}
--(void)viewWillDisappear:(BOOL)animated{
-    NSLog(@"viewWillDisappear");
-    [super viewWillDisappear:animated];
-}
--(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"viewDidDisappear");
-    [super viewDidDisappear:animated];
-}
--(void)dealloc{
-    NSLog(@"dealloc");
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -56,21 +38,32 @@ static NSString *s_SLoginNavigationName=@"loginNav";
 
 - (IBAction)loginAction:(id)sender {
     [[iMessageUtility sharedManager] doLoginWithAccount:_m_userTextField.text andPassword:_m_passwordTextField.text];
+    [self.m_loginButton setEnabled:NO];
+    [self.m_userTextField setEnabled:NO];
+    [self.m_passwordTextField setEnabled:NO];
 }
 
 #pragma mark - Login methods
 -(void)loginSuccess:(NSDictionary *)userInfoDic{
-//    NSLog(@"%@",userInfoDic);
+    
     [IMInfoUtility setIMInfoTag:IMAccount   tagValue:userInfoDic[@"Phone"]];
     [IMInfoUtility setIMInfoTag:IMNickname  tagValue:userInfoDic[@"Nickname"]];
     [IMInfoUtility setIMInfoTag:IMGUID      tagValue:userInfoDic[@"Guid"]];
     [IMInfoUtility setIMInfoTag:IMClientID  tagValue:userInfoDic [@"ClientID"]];
     UINavigationController *loginNavigationController =[self.storyboard instantiateViewControllerWithIdentifier:s_SLoginNavigationName];
-    [self presentViewController:loginNavigationController animated:YES completion:nil];
+    SMessageViewController *SMessageViewController = [[loginNavigationController viewControllers] objectAtIndex:0];
+    SMessageViewController.g_strUserName = userInfoDic[@"Phone"];
+    [self presentViewController:loginNavigationController
+          animated:YES
+          completion:nil];
 }
 
 -(void)loginFail:(NSString *)strErrorMsg{
-    [self showAlertView:NSLocalizedString(@"Fail", nil) message:strErrorMsg];
+    [self showAlertView:NSLocalizedString(@"Fail", nil)
+          message:strErrorMsg];
+    [self.m_loginButton setEnabled:YES];
+    [self.m_userTextField setEnabled:YES];
+    [self.m_passwordTextField setEnabled:YES];
 }
 
 
