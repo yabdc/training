@@ -8,13 +8,13 @@
 
 #import <iMessageUtility.h>
 #import "SDefine.h"
-#import "AppDelegate.h"
+#import "StringDelegate.h"
 
-@interface AppDelegate ()
+@interface StringDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation StringDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

@@ -19,6 +19,7 @@
     UIViewController *viewcontroller;
     UIImage *image;
     CGFloat keyboardHeight;
+    NSString *strChat;
 }
 @property (strong, nonatomic) IBOutlet UIView *m_View;
 
@@ -26,11 +27,10 @@
 @end
 @implementation SCustomView
 
-- (instancetype)initWithvc:(UIViewController *)vc{
+- (instancetype)initWithvc:(UIViewController *)vc ChatName:(NSString *)strChatName{
     viewcontroller=vc;
-    float vcw=vc.view.bounds.size.width;
-    float vch=vc.view.bounds.size.height;
-    self = [super initWithFrame:CGRectMake(0, -vch, vcw, vch)];
+    strChat=strChatName;
+    self = [super initWithFrame:CGRectMake(0, -ScreenHeight, ScreenWidth, ScreenHeight)];
     if (self) {
         keyboardHeight=0;
         image=nil;
@@ -45,6 +45,11 @@
     NSString *nibName = NSStringFromClass([self class]);
     UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
     [nib instantiateWithOwner:self options:nil];
+    CGRect newframe=self.m_View.frame;
+    newframe.size.width=ScreenWidth;
+    newframe.size.height=newframe.size.height*newframe.size.width/ScreenWidth;
+    
+    [self.m_View setFrame:newframe];
     
     [self addSubview:self.m_View];
     
@@ -53,13 +58,13 @@
 
 
 -(void)showView{
-    float scw=[UIScreen mainScreen].bounds.size.width;
+
     float adbvh=self.frame.size.height;
    
     
     [UIView transitionWithView:self duration:AnimationTime options:UIViewAnimationOptionTransitionNone animations: ^{
         CGRect newset;
-        newset =CGRectMake(0, keyboardHeight, scw, adbvh);
+        newset =CGRectMake(0, keyboardHeight, ScreenWidth, adbvh);
         
         self.frame=newset;
     }completion:^(BOOL finished){
@@ -69,11 +74,11 @@
 }
 
 -(void)hideView{
-    float scw=[UIScreen mainScreen].bounds.size.width;
+
     float adbvh=self.frame.size.height;
     [UIView transitionWithView:self duration:AnimationTime options:UIViewAnimationOptionTransitionNone animations: ^{
         CGRect newset;
-        newset =CGRectMake(0, -adbvh, scw, adbvh);
+        newset =CGRectMake(0, -adbvh, ScreenWidth, adbvh);
         //
         self.frame=newset;
     }completion:^(BOOL finished){
@@ -101,6 +106,7 @@
     [self hideView];
     SMapViewController *SMapViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SMapViewControllerName];
     SMapViewController.g_bBrowseMode=NO;
+    SMapViewController.g_strChatName=strChat;
     [viewcontroller.navigationController pushViewController:SMapViewController animated:YES];
 }
 
@@ -124,6 +130,7 @@
     [viewcontroller dismissViewControllerAnimated:YES completion:nil];
     SPhotoViewController *SPhotoViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SPhotoViewControllerName];
     SPhotoViewController.g_bDownloadMode=NO;
+    SPhotoViewController.g_strChatName=strChat;
     SPhotoViewController.g_image=info[UIImagePickerControllerOriginalImage];    [viewcontroller presentViewController:SPhotoViewController animated:YES completion:nil];
 }
 

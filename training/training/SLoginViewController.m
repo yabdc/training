@@ -11,10 +11,13 @@
 #import "SLoginViewController.h"
 #import "SMessageViewController.h"
 #import "SDefine.h"
-
+#import "WaitingView.h"
 
 
 @interface SLoginViewController ()<iMessageUtilityDelegte>
+{
+    WaitingView *m_waitingView;
+}
 @property (weak, nonatomic) IBOutlet UITextField *m_userTextField;
 @property (weak, nonatomic) IBOutlet UITextField *m_passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *m_loginButton;
@@ -25,11 +28,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    m_waitingView = [[WaitingView alloc]initWithMessage:@"waiting..." andStyle:MessageStyleWhiteStyle delegate:self];
     [[iMessageUtility sharedManager] setDelegate:self];
     self.m_userTextField.text=TestUserName;
     self.m_passwordTextField.text=TestPassWord;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -37,14 +40,19 @@
 }
 
 - (IBAction)loginAction:(id)sender {
+    [m_waitingView showWaitingView];
     [[iMessageUtility sharedManager] doLoginWithAccount:_m_userTextField.text andPassword:_m_passwordTextField.text];
-    [self.m_loginButton setEnabled:NO];
-    [self.m_userTextField setEnabled:NO];
-    [self.m_passwordTextField setEnabled:NO];
 }
 
 #pragma mark - Login methods
 -(void)loginSuccess:(NSDictionary *)userInfoDic{
+    if (![self isAccountSameAtLocal:_m_userTextField.text])
+    {
+        [IMInfoUtility clearUserAccountInfo];
+        [[iMessageUtility sharedManager] reloadDatabase];
+    }
+    
+    [IMInfoUtility setIMInfoTag:IMPassword  tagValue:_m_passwordTextField.text];
     
     [IMInfoUtility setIMInfoTag:IMAccount   tagValue:userInfoDic[@"Phone"]];
     [IMInfoUtility setIMInfoTag:IMNickname  tagValue:userInfoDic[@"Nickname"]];
@@ -59,13 +67,9 @@
 }
 
 -(void)loginFail:(NSString *)strErrorMsg{
-    [self showAlertView:NSLocalizedString(@"Fail", nil)
-          message:strErrorMsg];
-    [self.m_loginButton setEnabled:YES];
-    [self.m_userTextField setEnabled:YES];
-    [self.m_passwordTextField setEnabled:YES];
+    [m_waitingView hideWaitingView];
+    [self showAlertView:NSLocalizedString(@"Fail", nil) message:strErrorMsg];
 }
-
 
 -(void)showAlertView:(NSString *)strTitle message:(NSString *)strMessage{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle
@@ -76,5 +80,16 @@
     [alert show];
 }
 
+
+//比對輸入的帳號是否與手機記憶體中的帳號是否相同
+
+- (BOOL)isAccountSameAtLocal:(NSString *)strAccount
+{
+    NSString *strLocalAccount = [IMInfoUtility getIMInfoTagValue:IMAccount];
+    if (!strLocalAccount || [strAccount isEqualToString:strLocalAccount]) {
+        return YES;
+    }
+    return NO;
+}
 
 @end

@@ -3,12 +3,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="SLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SloginView" id="vXZ-lx-hvc" customClass="SLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -42,14 +43,26 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vm5-FQ-lhZ">
-                                <rect key="frame" x="141" y="269" width="38" height="30"/>
-                                <state key="normal" title="Login">
+                                <rect key="frame" x="145" y="269" width="30" height="30"/>
+                                <state key="normal" title="登入">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="loginAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dwf-wP-w76"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="帳號：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFN-Ry-nWS">
+                                <rect key="frame" x="16" y="117" width="51" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密碼：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrU-k6-nj2">
+                                <rect key="frame" x="16" y="172" width="51" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.625" green="0.82299999999999995" blue="0.53900000000000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -59,9 +72,13 @@
                             <constraint firstItem="Vm5-FQ-lhZ" firstAttribute="top" secondItem="sFr-Y7-rBa" secondAttribute="bottom" constant="70" id="NY9-eC-f0n"/>
                             <constraint firstItem="chf-Z1-CtT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gTo-P8-IHN" secondAttribute="bottom" constant="25" id="P8X-5N-KHM"/>
                             <constraint firstAttribute="centerX" secondItem="gTo-P8-IHN" secondAttribute="centerX" id="T3a-57-LuZ"/>
+                            <constraint firstItem="gFN-Ry-nWS" firstAttribute="baseline" secondItem="chf-Z1-CtT" secondAttribute="baseline" id="UFZ-ea-aUQ"/>
+                            <constraint firstItem="gFN-Ry-nWS" firstAttribute="leading" secondItem="QrU-k6-nj2" secondAttribute="leading" id="UUI-HI-AK5"/>
                             <constraint firstAttribute="centerX" secondItem="chf-Z1-CtT" secondAttribute="centerX" id="bHe-kc-rP4"/>
+                            <constraint firstItem="QrU-k6-nj2" firstAttribute="baseline" secondItem="sFr-Y7-rBa" secondAttribute="baseline" id="bz2-cD-xqt"/>
                             <constraint firstAttribute="centerX" secondItem="Vm5-FQ-lhZ" secondAttribute="centerX" id="l26-3E-5zY"/>
                             <constraint firstItem="gTo-P8-IHN" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="48" id="uY7-1l-ge7"/>
+                            <constraint firstItem="gFN-Ry-nWS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="y9T-sS-fDA"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -75,7 +92,7 @@
             </objects>
             <point key="canvasLocation" x="68" y="220"/>
         </scene>
-        <!--0000001-->
+        <!--Message View Controller-->
         <scene sceneID="3pY-WF-kYJ">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="44g-go-0ga" customClass="SMessageViewController" sceneMemberID="viewController">
@@ -196,8 +213,12 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="0000001" id="E2Z-z5-rl4">
-                        <barButtonItem key="leftBarButtonItem" title="登出" id="EdS-66-eZL"/>
+                    <navigationItem key="navigationItem" id="E2Z-z5-rl4">
+                        <barButtonItem key="leftBarButtonItem" title="登出" id="EdS-66-eZL">
+                            <connections>
+                                <action selector="backToLoginView:" destination="44g-go-0ga" id="WO6-EG-E0L"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>

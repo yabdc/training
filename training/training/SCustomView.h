@@ -10,7 +10,7 @@
 
 @interface SCustomView : UIView
 
-- (instancetype)initWithvc:(UIViewController *)vc;
+- (instancetype)initWithvc:(UIViewController *)vc ChatName:(NSString *)strChatName;
 -(void)showView;
 -(void)hideView;
 -(void)setKeyBoardHeight:(CGFloat)Height;

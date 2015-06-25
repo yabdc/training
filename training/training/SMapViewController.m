@@ -36,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_g_bBrowseMode==YES) {
+        
         self.m_markView.hidden=YES;
         self.m_pinView.hidden=YES;
         NSArray *aryContent = [self.g_mapMessageItem.Content componentsSeparatedByString:@"//"];
@@ -47,9 +48,10 @@
                                                                ,m_flongitude)];
         [m_annotation setTitle:aryContent[0]];
     }else{
+        NSString *strMessageNotification=[NSString stringWithFormat:@"N%@",_g_strChatName];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(messageNotification:)
-                                                     name:@"N0000001"
+                                                     name:strMessageNotification
                                                    object:nil];
         self.m_flagButton.hidden=YES;
     }
@@ -152,7 +154,7 @@
 
 -(void)tapPinView:(UITapGestureRecognizer *)recognizer{
     m_strSendAddress=[NSString stringWithFormat:@"%@//%f//%f", m_strAddress, _m_MKMapView.centerCoordinate.latitude, _m_MKMapView.centerCoordinate.longitude];
-    [[iMessageUtility sharedManager] sendMsgWithContent:m_strSendAddress ContentType:2 bySequenceID:nil toPhone:@"0000001"];
+    [[iMessageUtility sharedManager] sendMsgWithContent:m_strSendAddress ContentType:2 bySequenceID:nil toPhone:_g_strChatName];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -172,7 +174,7 @@
             // If an existing pin view was not available, create one.
             pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
             pinView.canShowCallout = YES;
-            pinView.image = [UIImage imageNamed:@"Flag"];
+            pinView.image = [UIImage imageNamed:@"MapFlag"];
             
         } else {
             pinView.annotation = annotation;

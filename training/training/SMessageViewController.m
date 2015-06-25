@@ -15,21 +15,24 @@
 #import "SCustomView.h"
 #import "SPhotoViewController.h"
 #import "SMapViewController.h"
+#import "SLoginViewController.h"
 
 @interface SMessageViewController ()<iMessageUtilityDelegte,UITextViewDelegate,MLEmojiLabelDelegate,MFMailComposeViewControllerDelegate>
 {
-    SCustomView *vc;
-    ChatMessageItem *m_MessageItem;
-    NSMutableArray *m_aryMessageItem;
+    SCustomView *m_CustomView;                  //下滑的View
+    ChatMessageItem *m_MessageItem;             //文字訊息
+    NSMutableArray *m_aryMessageItem;           //文字訊息的陣列
+    NSString *m_strUserName;                    //使用者自己
+    NSString *m_strChatName;                    //對話對象
     CGRect m_initialFrameOfmessageTextView;     //TextView的初始frame
+    CGRect m_oldFrameOfsendView;                //功能區位置
+    CGRect m_oldFrameOfmainView;                //主畫面位置
+    CGSize m_kbSize;                            //鍵盤大小
+    float m_fHaveNewMessage;                    //訊息則數
     NSString *m_strMessageNotification;
-    NSString *m_strUserName;
-    NSString *m_strChatName;
-    CGRect m_oldFrameOfsendView;
-    CGRect m_oldFrameOfmainView;
-    CGSize m_kbSize;
+    NSTimer *m_timer;
     UITapGestureRecognizer *m_tapCellGestureRecognizer;
-    float leftOrRight;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *m_TableView;
 @property (weak, nonatomic) IBOutlet UIView *m_mainView;
@@ -50,6 +53,35 @@
         m_strUserName=TestChat;
         m_strChatName=TestUserName;
     }
+    self.title=m_strChatName;
+    m_initialFrameOfmessageTextView=CGRectZero;
+    m_oldFrameOfsendView=CGRectZero;
+    m_oldFrameOfmainView=CGRectZero;
+    m_fHaveNewMessage=0;
+    
+    
+    m_aryMessageItem=[NSMutableArray new];
+    self.m_sendView.clipsToBounds=NO;
+//    //下拉更新
+//    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+//    [refreshControl addTarget:self
+//                    action:@selector(handleRefresh:)
+//                    forControlEvents:UIControlEventValueChanged];
+//    [self.m_TableView addSubview:refreshControl];
+//    _m_messageTextView.delegate=self;
+    
+    m_CustomView=[[SCustomView alloc] initWithvc:self ChatName:m_strChatName];
+    [self.view addSubview:m_CustomView];
+    
+}
+//下拉更新
+//-(void)handleRefresh:(UIRefreshControl *)refreshControl{
+//    [self.m_TableView reloadData];
+//    [refreshControl endRefreshing];
+//}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     m_strMessageNotification = [NSString stringWithFormat:@"N%@", m_strChatName];
     //註冊鍵盤監聽
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -64,38 +96,20 @@
                                              selector:@selector(messageNotification:)
                                                  name:m_strMessageNotification
                                                object:nil];
-    
-    m_aryMessageItem=[NSMutableArray new];
-    self.m_sendView.clipsToBounds=NO;
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self
-                    action:@selector(handleRefresh:)
-                    forControlEvents:UIControlEventValueChanged];
-    [self.m_TableView addSubview:refreshControl];
-    
-    _m_messageTextView.delegate=self;
-    vc=[[SCustomView alloc] initWithvc:self];
-    [self.view addSubview:vc];
-}
-//下拉更新
--(void)handleRefresh:(UIRefreshControl *)refreshControl{
-    [self.m_TableView reloadData];
-    [refreshControl endRefreshing];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
     [[iMessageUtility sharedManager] setDelegate:self];
-    
+    [[iMessageUtility sharedManager] checkChatTableIsExisted:m_strChatName
+                                                     isGroup:NO];
+    m_fHaveNewMessage=[[iMessageUtility sharedManager] queryRecordsCountFromChatTable:m_strChatName isGroup:NO];
+    [[iMessageUtility sharedManager] getChatListByPhoneFromWS:m_strChatName];
+    while (m_fHaveNewMessage!=[[iMessageUtility sharedManager] queryRecordsCountFromChatTable:m_strChatName isGroup:NO])
+    {
+        m_fHaveNewMessage=[[iMessageUtility sharedManager] queryRecordsCountFromChatTable:m_strChatName isGroup:NO];
+        [[iMessageUtility sharedManager] getChatListByPhoneFromWS:m_strChatName];
+    }
     m_aryMessageItem=[[iMessageUtility sharedManager] queryChatsFromTableByAccount:m_strChatName
                                                       isGroup:NO
                                                       withLimit:PresetMessageCount];
-    [[iMessageUtility sharedManager] checkChatTableIsExisted:m_strUserName
-                                     isGroup:NO];
-    [[iMessageUtility sharedManager] getChatListByPhoneFromWS:m_strChatName];
-    [super viewWillAppear:animated];
-    
-    
+    [self startTimer];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -115,7 +129,18 @@
                       animated:NO];
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [self stopTimer];
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:m_strMessageNotification
+                                                 object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:UIKeyboardWillShowNotification                                                 object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:UIKeyboardWillHideNotification
+                                                 object:nil];
+    [super viewDidDisappear:animated];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -147,9 +172,31 @@
 }
 //新增圖片，位置訊息的view控制
 - (IBAction)otherBtnAction:(UIButton *)sender {
-    [vc showView];
-    NSLog(@"%@",vc);
+    [m_CustomView showView];
+    NSLog(@"%@",m_CustomView);
     
+}
+
+- (IBAction)backToLoginView:(id)sender {
+    SLoginViewController *SLoginViewController = [self.storyboard instantiateViewControllerWithIdentifier:s_SLoginViewControllerName];
+    [self presentViewController:SLoginViewController animated:YES completion:nil];
+}
+- (void)startTimer {
+    m_timer = [NSTimer scheduledTimerWithTimeInterval:10
+                                               target:self
+                                             selector:@selector(refreshDB)
+                                             userInfo:nil repeats:YES];
+}
+- (void) stopTimer{
+    [m_timer invalidate];
+    m_timer = nil;
+}
+-(void)refreshDB{
+    while (m_fHaveNewMessage!=[[iMessageUtility sharedManager] queryRecordsCountFromChatTable:m_strChatName isGroup:NO])
+    {
+        m_fHaveNewMessage=[[iMessageUtility sharedManager] queryRecordsCountFromChatTable:m_strChatName isGroup:NO];
+        [[iMessageUtility sharedManager] getChatListByPhoneFromWS:m_strChatName];
+    }
 }
 
 #pragma mark - Table view data source
@@ -174,9 +221,9 @@
         }
     }
     UIImage *img=nil;
-    UIImageView *imgView=nil;
+    UIImageView *bubbleView=nil;
     m_MessageItem = m_aryMessageItem[indexPath.row];
-    leftOrRight=[UIScreen mainScreen].bounds.size.width;
+    
     if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
         img=[UIImage imageNamed:@"BubbleSelf"];
     }else{
@@ -184,8 +231,8 @@
     }
     UIEdgeInsets insets = UIEdgeInsetsMake(TopEdgeInset, LeftEdgeInset, BottomEdgeInset, RightEdgeInset);
     img=[img resizableImageWithCapInsets:insets];
-    imgView=[[UIImageView alloc]initWithImage:img];
-    imgView.userInteractionEnabled=YES;
+    bubbleView=[[UIImageView alloc]initWithImage:img];
+    bubbleView.userInteractionEnabled=YES;
     
     
     
@@ -196,11 +243,11 @@
         [imageButton setBackgroundImage:[UIImage imageWithData:[self hexStringToData:m_MessageItem.Content]] forState:UIControlStateNormal];
         [imageButton sizeToFit];
         [imageButton addTarget:self action:@selector(imageButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        [imgView addSubview:imageButton];
+        [bubbleView addSubview:imageButton];
         if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-        [imgView setFrame:CGRectMake(leftOrRight-(imageButton.frame.size.width+2*LeftPaddingMessageContent) , ToCellTop, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
+        [bubbleView setFrame:CGRectMake(ScreenWidth-(imageButton.frame.size.width+2*LeftPaddingMessageContent) , ToCellTop, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
         }else{
-        [imgView setFrame:CGRectMake(ToCellLeft , ToCellTop, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
+        [bubbleView setFrame:CGRectMake(ToCellLeft , ToCellTop, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
         }
         
     }else if([m_MessageItem.ContentType isEqualToString: TextMessage ]){
@@ -216,13 +263,13 @@
         CGSize a=[textLabel sizeThatFits:CGSizeMake(MaxWidthOfLabel, MAXFLOAT)];
         [textLabel setFrame:CGRectMake(LeftPaddingMessageContent, TopPaddingMessageContent,a.width, a.height)];
         
-        [imgView addSubview:textLabel];
+        [bubbleView addSubview:textLabel];
         
         if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-            [imgView setFrame:CGRectMake(leftOrRight-(textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
+            [bubbleView setFrame:CGRectMake(ScreenWidth-(textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
         }else{
         
-        [imgView setFrame:CGRectMake(0, ToCellTop, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
+        [bubbleView setFrame:CGRectMake(0, ToCellTop, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
         }
     }else if([m_MessageItem.ContentType isEqualToString: AddressMessage ]){
         NSArray *aryContent = [m_MessageItem.Content componentsSeparatedByString:@"//"];
@@ -239,32 +286,39 @@
         adressButton.contentMode = UIViewContentModeScaleAspectFit;
         [adressButton setBackgroundImage:[UIImage imageNamed:@"Flag"] forState:UIControlStateNormal];
         [adressButton addTarget:self action:@selector(adressButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        [imgView addSubview:adressButton];
+        [bubbleView addSubview:adressButton];
         [textLabel setFrame:CGRectMake(a.height+LeftPaddingMessageContent, TopPaddingMessageContent,a.width, a.height)];
-        [imgView addSubview:textLabel];
+        [bubbleView addSubview:textLabel];
         
         if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-            [imgView setFrame:CGRectMake(leftOrRight-(a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
+            [bubbleView setFrame:CGRectMake(ScreenWidth-(a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
         }else{
-        [imgView setFrame:CGRectMake(ToCellLeft, ToCellTop, a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
+        [bubbleView setFrame:CGRectMake(ToCellLeft, ToCellTop, a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
         }
         
     }
-    UILabel *label = [[UILabel alloc]init];
-    label.text = m_MessageItem.DataTime;
-    label.font = [UIFont systemFontOfSize:DateFont];
+    UILabel *timeLabel = [[UILabel alloc]init];
+    timeLabel.text = m_MessageItem.DataTime;
+    timeLabel.font = [UIFont systemFontOfSize:DateFont];
     
-    CGRect labelFrame = label.frame;
-    labelFrame.size=[label sizeThatFits:CGSizeMake(MAXFLOAT, 0)];
+    CGRect labelFrame = timeLabel.frame;
+    labelFrame.size=[timeLabel sizeThatFits:CGSizeMake(MAXFLOAT, 0)];
     if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-        labelFrame.origin = CGPointMake(leftOrRight-labelFrame.size.width, imgView.frame.size.height+ToCellTop);
+        labelFrame.origin = CGPointMake(ScreenWidth-labelFrame.size.width, bubbleView.frame.size.height+ToCellTop);
     }else{
-        labelFrame.origin = CGPointMake(ToCellLeft, imgView.frame.size.height+ToCellTop);
+        labelFrame.origin = CGPointMake(ToCellLeft, bubbleView.frame.size.height+ToCellTop);
     }
     
-    [label setFrame:labelFrame];
-    [cell.contentView addSubview:label];
-    [cell.contentView addSubview:imgView];
+    [timeLabel setFrame:labelFrame];
+    UIView *setGestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, bubbleView.frame.size.height+timeLabel.frame.size.height+20)];
+    
+    m_tapCellGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
+    
+    [m_tapCellGestureRecognizer setCancelsTouchesInView:NO];
+    [setGestureView addGestureRecognizer:m_tapCellGestureRecognizer];
+    [cell.contentView  addSubview:setGestureView];
+    [cell.contentView addSubview:timeLabel];
+    [cell.contentView addSubview:bubbleView];
     
     return cell;
 }
@@ -302,7 +356,7 @@
     UIImage *img=nil;
     UIImageView *imgView=nil;
     m_MessageItem = m_aryMessageItem[indexPath.row];
-    leftOrRight=[UIScreen mainScreen].bounds.size.width;
+    
     if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
         img=[UIImage imageNamed:@"BubbleSelf"];
     }else{
@@ -324,7 +378,7 @@
         [imageButton addTarget:self action:@selector(imageButtonPress:) forControlEvents:UIControlEventTouchUpInside];
         [imgView addSubview:imageButton];
         if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-            [imgView setFrame:CGRectMake(leftOrRight-(imageButton.frame.size.width+2*LeftPaddingMessageContent) , ToCellTop, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
+            [imgView setFrame:CGRectMake(ScreenWidth-(imageButton.frame.size.width+2*LeftPaddingMessageContent) , ToCellTop, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
         }else{
             [imgView setFrame:CGRectMake(ToCellLeft , ToCellTop, imageButton.frame.size.width+2*LeftPaddingMessageContent, imageButton.frame.size.height+2*TopPaddingMessageContent)];
         }
@@ -345,7 +399,7 @@
         [imgView addSubview:textLabel];
         
         if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-            [imgView setFrame:CGRectMake(leftOrRight-(textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
+            [imgView setFrame:CGRectMake(ScreenWidth-(textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
         }else{
             
             [imgView setFrame:CGRectMake(0, ToCellTop, textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
@@ -370,7 +424,7 @@
         [imgView addSubview:textLabel];
         
         if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-            [imgView setFrame:CGRectMake(leftOrRight-(a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
+            [imgView setFrame:CGRectMake(ScreenWidth-(a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent), ToCellTop, a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
         }else{
             [imgView setFrame:CGRectMake(ToCellLeft, ToCellTop, a.height+textLabel.frame.size.width+2*LeftPaddingMessageContent, textLabel.frame.size.height+2*TopPaddingMessageContent)];
         }
@@ -383,7 +437,7 @@
     CGRect labelFrame = label.frame;
     labelFrame.size=[label sizeThatFits:CGSizeMake(MAXFLOAT, 0)];
     if ([m_MessageItem.isMySpeaking isEqualToString: Self]) {
-        labelFrame.origin = CGPointMake(leftOrRight-labelFrame.size.width, imgView.frame.size.height+ToCellTop);
+        labelFrame.origin = CGPointMake(ScreenWidth-labelFrame.size.width, imgView.frame.size.height+ToCellTop);
     }else{
         labelFrame.origin = CGPointMake(ToCellLeft, imgView.frame.size.height+ToCellTop);
     }
@@ -393,8 +447,7 @@
     
     return imgView.frame.size.height+label.frame.size.height+20;
     
-    //        return [self heightForBasicCellAtIndexPath:indexPath];
-    //    return 200;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -402,11 +455,14 @@
 }
 
 #pragma mark --keyboard method
+- (void)hideKeyBoard{
+    [self.m_messageTextView resignFirstResponder];
+}
 //鍵盤將出現
 -(void)keyboardWillShow:(NSNotification*)aNotification
 {
     m_kbSize=[[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [vc setKeyBoardHeight:m_kbSize.height];
+    [m_CustomView setKeyBoardHeight:m_kbSize.height];
     [self moveCollectionView:m_kbSize];
     m_oldFrameOfsendView =_m_sendView.frame;
 }
@@ -416,7 +472,7 @@
 - (void)keyboardWillHide:(NSNotification*)aNotification
 {
     m_kbSize=CGSizeZero;
-    [vc setKeyBoardHeight:m_kbSize.height];
+    [m_CustomView setKeyBoardHeight:m_kbSize.height];
     [self moveCollectionView:m_kbSize];
 }
 //鍵盤是否遮住輸入格
@@ -454,6 +510,7 @@
         [self.m_sendView setFrame:m_oldFrameOfsendView];
     }
 }
+#pragma mark -- HexNSString to NSData
 //hex轉image
 - (NSData *) hexStringToData:(NSString *) hexString
 {

@@ -11,7 +11,7 @@
 		E7803C7D1B2ECCFB00DD3E3D /* SMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7803C7C1B2ECCFB00DD3E3D /* SMapViewController.m */; };
 		E7803C801B2ECD1E00DD3E3D /* SPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7803C7F1B2ECD1E00DD3E3D /* SPhotoViewController.m */; };
 		E7CB1DD81B27CC7A004BDB16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DD71B27CC7A004BDB16 /* main.m */; };
-		E7CB1DDB1B27CC7A004BDB16 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */; };
+		E7CB1DDB1B27CC7A004BDB16 /* StringDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DDA1B27CC7A004BDB16 /* StringDelegate.m */; };
 		E7CB1DE11B27CC7A004BDB16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DDF1B27CC7A004BDB16 /* Main.storyboard */; };
 		E7CB1DE61B27CC7A004BDB16 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7CB1DE41B27CC7A004BDB16 /* LaunchScreen.xib */; };
 		E7CB1DF21B27CC7A004BDB16 /* trainingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1DF11B27CC7A004BDB16 /* trainingTests.m */; };
@@ -21,6 +21,7 @@
 		E7CB1E111B280171004BDB16 /* SMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CB1E101B280171004BDB16 /* SMessageViewController.m */; };
 		E7D1E9E81B38FE9B0075BBED /* MLEmojiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D1E9E51B38FE9B0075BBED /* MLEmojiLabel.m */; };
 		E7D1E9E91B38FE9B0075BBED /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D1E9E71B38FE9B0075BBED /* TTTAttributedLabel.m */; };
+		E7F691711B3AA9CF00F02778 /* WaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F691701B3AA9CF00F02778 /* WaitingView.m */; };
 		E7FFB8E11B2E641600B7CE07 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFB8E01B2E641600B7CE07 /* MapKit.framework */; };
 		E7FFB8E31B2E642200B7CE07 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FFB8E21B2E642200B7CE07 /* CoreLocation.framework */; };
 		E7FFB8F81B2E999500B7CE07 /* SCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7FFB8F71B2E999500B7CE07 /* SCustomView.m */; };
@@ -46,8 +47,8 @@
 		E7CB1DD21B27CC7A004BDB16 /* training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = training.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CB1DD61B27CC7A004BDB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7CB1DD71B27CC7A004BDB16 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E7CB1DD91B27CC7A004BDB16 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E7CB1DD91B27CC7A004BDB16 /* StringDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringDelegate.h; sourceTree = "<group>"; };
+		E7CB1DDA1B27CC7A004BDB16 /* StringDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringDelegate.m; sourceTree = "<group>"; };
 		E7CB1DE01B27CC7A004BDB16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7CB1DE51B27CC7A004BDB16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E7CB1DEB1B27CC7A004BDB16 /* trainingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = trainingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +65,8 @@
 		E7D1E9E51B38FE9B0075BBED /* MLEmojiLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLEmojiLabel.m; sourceTree = "<group>"; };
 		E7D1E9E61B38FE9B0075BBED /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		E7D1E9E71B38FE9B0075BBED /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		E7F6916F1B3AA9CF00F02778 /* WaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitingView.h; sourceTree = "<group>"; };
+		E7F691701B3AA9CF00F02778 /* WaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingView.m; sourceTree = "<group>"; };
 		E7FFB8E01B2E641600B7CE07 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E7FFB8E21B2E642200B7CE07 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E7FFB8F61B2E999500B7CE07 /* SCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCustomView.h; sourceTree = "<group>"; };
@@ -119,8 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				E7D1E9E31B38FE7A0075BBED /* framework */,
-				E7CB1DD91B27CC7A004BDB16 /* AppDelegate.h */,
-				E7CB1DDA1B27CC7A004BDB16 /* AppDelegate.m */,
+				E7CB1DD91B27CC7A004BDB16 /* StringDelegate.h */,
+				E7CB1DDA1B27CC7A004BDB16 /* StringDelegate.m */,
 				E7CB1DDF1B27CC7A004BDB16 /* Main.storyboard */,
 				E7CB1E011B27E0FF004BDB16 /* SLoginViewController.h */,
 				E7CB1E021B27E0FF004BDB16 /* SLoginViewController.m */,
@@ -170,6 +173,8 @@
 		E7D1E9E31B38FE7A0075BBED /* framework */ = {
 			isa = PBXGroup;
 			children = (
+				E7F6916F1B3AA9CF00F02778 /* WaitingView.h */,
+				E7F691701B3AA9CF00F02778 /* WaitingView.m */,
 				E7D1E9E41B38FE9B0075BBED /* MLEmojiLabel.h */,
 				E7D1E9E51B38FE9B0075BBED /* MLEmojiLabel.m */,
 				E7D1E9E61B38FE9B0075BBED /* TTTAttributedLabel.h */,
@@ -279,10 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7CB1DDB1B27CC7A004BDB16 /* AppDelegate.m in Sources */,
+				E7CB1DDB1B27CC7A004BDB16 /* StringDelegate.m in Sources */,
 				E7803C801B2ECD1E00DD3E3D /* SPhotoViewController.m in Sources */,
 				E7CB1E031B27E0FF004BDB16 /* SLoginViewController.m in Sources */,
 				E7CB1E111B280171004BDB16 /* SMessageViewController.m in Sources */,
+				E7F691711B3AA9CF00F02778 /* WaitingView.m in Sources */,
 				E7FFB8F81B2E999500B7CE07 /* SCustomView.m in Sources */,
 				E7CB1DD81B27CC7A004BDB16 /* main.m in Sources */,
 				E7D1E9E81B38FE9B0075BBED /* MLEmojiLabel.m in Sources */,

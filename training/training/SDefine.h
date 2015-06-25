@@ -15,6 +15,9 @@
 #define AnimationTime 0.25
 #define MaxHeightOfTextView 80.0f
 #define TestChat @"0000001"
+//螢幕
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
 //地圖可見大小
 #define MapArea 2000.0f
 //預設Cell高度
@@ -45,6 +48,7 @@
 #define BottomEdgeInset 30
 #define RightEdgeInset 25
 //storyboard上controller 名子
+static NSString *s_SLoginViewControllerName=@"SloginView";
 static NSString *s_SLoginNavigationName=@"loginNav";
 static NSString *s_SMapViewControllerName=@"SMapView";
 static NSString *s_SPhotoViewControllerName=@"SPhotoView";
