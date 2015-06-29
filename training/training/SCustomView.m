@@ -86,6 +86,13 @@
     }];
 }
 
+- (IBAction)markerPress:(id)sender {
+    [self hideView];
+    SMapViewController *SMapViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SMapViewControllerName];
+    SMapViewController.g_bBrowseMode=NO;
+    SMapViewController.g_strChatName=strChat;
+    [viewcontroller.navigationController pushViewController:SMapViewController animated:YES];
+}
 
 - (IBAction)cameraPress:(id)sender {
     [self hideView];
@@ -101,15 +108,6 @@
     }
     
 }
-
-- (IBAction)markerPress:(id)sender {
-    [self hideView];
-    SMapViewController *SMapViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SMapViewControllerName];
-    SMapViewController.g_bBrowseMode=NO;
-    SMapViewController.g_strChatName=strChat;
-    [viewcontroller.navigationController pushViewController:SMapViewController animated:YES];
-}
-
 #pragma mark --addimage
 - (IBAction)photoPress:(id)sender {
     [self hideView];
@@ -125,13 +123,12 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    picker.delegate = nil;
     image=info[UIImagePickerControllerOriginalImage];
-    [viewcontroller dismissViewControllerAnimated:YES completion:nil];
     SPhotoViewController *SPhotoViewController =[viewcontroller.storyboard instantiateViewControllerWithIdentifier:s_SPhotoViewControllerName];
     SPhotoViewController.g_bDownloadMode=NO;
     SPhotoViewController.g_strChatName=strChat;
-    SPhotoViewController.g_image=info[UIImagePickerControllerOriginalImage];    [viewcontroller presentViewController:SPhotoViewController animated:YES completion:nil];
+    SPhotoViewController.g_image=info[UIImagePickerControllerOriginalImage];
+    [picker pushViewController:SPhotoViewController animated:YES];
 }
 
 

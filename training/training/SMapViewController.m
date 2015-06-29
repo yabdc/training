@@ -47,13 +47,12 @@
         [m_annotation setCoordinate:CLLocationCoordinate2DMake(m_flatitude
                                                                ,m_flongitude)];
         [m_annotation setTitle:aryContent[0]];
+        MKCoordinateRegion regin =MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(m_flatitude,m_flongitude), MapArea, MapArea);
+        [self.m_MKMapView setRegion:regin animated:YES];
     }else{
-        NSString *strMessageNotification=[NSString stringWithFormat:@"N%@",_g_strChatName];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(messageNotification:)
-                                                     name:strMessageNotification
-                                                   object:nil];
         self.m_flagButton.hidden=YES;
+        MKCoordinateRegion regin =MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(24.170418,120.637811), MapArea, MapArea);
+        [self.m_MKMapView setRegion:regin animated:YES];
     }
     m_strAddress=nil;
     UIImage *baritemImage=[UIImage imageNamed: @"UserLocation"];
@@ -64,8 +63,7 @@
     
     self.m_locationManager=[[CLLocationManager alloc] init];
     [self.m_locationManager requestWhenInUseAuthorization];
-    MKCoordinateRegion regin =MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(m_flatitude,m_flongitude), MapArea, MapArea);
-    [self.m_MKMapView setRegion:regin animated:YES];
+    
     self.m_MKMapView.delegate=self;
     
     

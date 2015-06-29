@@ -7,7 +7,7 @@
 //
 
 #import "WaitingView.h"
-
+#define IsIOS8Later [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0
 @implementation WaitingView
 {
     float screenHeight, screenWidth;
@@ -21,7 +21,11 @@
     screenWidth = [UIScreen mainScreen].bounds.size.width;
     
     //打底的blurView
-    self = [ super initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight] ];
+    if (IsIOS8Later) {
+        self = [ super initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    }else{
+        
+    }
     self.frame = CGRectMake(0, 0, screenWidth, screenHeight);
     
     //message Label

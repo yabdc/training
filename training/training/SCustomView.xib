@@ -147,6 +147,7 @@
                 <constraint firstAttribute="trailing" secondItem="bFA-te-hvD" secondAttribute="trailing" constant="-7" id="KtS-0H-tZ4"/>
                 <constraint firstItem="bFA-te-hvD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="P0g-uF-IIe"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="259.5" y="203"/>
         </view>

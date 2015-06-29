@@ -33,12 +33,12 @@
         self.m_fileDownload.delegate = self;
         self.m_okButton.enabled = NO;
     }else{
-        NSString *strMessageNotification=[NSString stringWithFormat:@"R%@",_g_strChatName];
         self.m_progressView.hidden=YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(messageNotification:)
-                                                     name:strMessageNotification
-                                                   object:nil];
+//        NSString *strMessageNotification=[NSString stringWithFormat:@"R%@",_g_strChatName];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(messageNotification:)
+//                                                     name:strMessageNotification
+//                                                   object:nil];
         self.g_image=[self imageWithImageSimple:_g_image scaledToSize:CGSizeMake(ScreenWidth, ScreenWidth/_g_image.size.width*_g_image.size.height)];
     }
     
@@ -64,9 +64,9 @@
     }
 }
 
-- (void)messageNotification:(NSNotification *)notification{
-    NSLog(@"%@",notification);
-}
+//- (void)messageNotification:(NSNotification *)notification{
+//    NSLog(@"%@",notification);
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -75,15 +75,26 @@
 
 - (IBAction)okAction:(id)sender {
     if (_g_bDownloadMode==YES) {
-        UIImageWriteToSavedPhotosAlbum ( self.m_imageView.image, nil, nil, nil );
-        [self dismissViewControllerAnimated:YES completion:nil];
+        UIImageWriteToSavedPhotosAlbum ( _m_imageView.image, nil, nil, nil );
+        if (IsIOS8Later) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"下載完成" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"確定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        }else{
+            UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"下載完成" message:@"" delegate:self cancelButtonTitle:@"確定" otherButtonTitles:nil];
+            [alertView show];
+        }
+        
     }else{
         [[iMessageUtility sharedManager] sendMsgWithImage:_g_image bySequenceID:nil account:_g_strChatName isGroup:NO];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 - (IBAction)cancelAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)iMDownloadProgress:(NSNumber *)progress{
@@ -136,6 +147,18 @@
     return newImage;
 }
 
+#pragma mark UIAlertViewDelegate
+-(void)alertView:(UIAlertView * )alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:{
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+            break;
+
+        default:
+            break;
+    }
+}
 /*
 #pragma mark - Navigation
 

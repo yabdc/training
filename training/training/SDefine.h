@@ -15,6 +15,8 @@
 #define AnimationTime 0.25
 #define MaxHeightOfTextView 80.0f
 #define TestChat @"0000001"
+//字數限制
+#define StringLengthLimit 100
 //螢幕
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -36,6 +38,7 @@
 #define ImageMessage @"1"
 #define AddressMessage @"2"
 //訊息
+#define Padding 10
 #define ToCellLeft 10
 #define ToCellTop 10
 #define TopPaddingMessageContent 15
@@ -55,5 +58,6 @@ static NSString *s_SPhotoViewControllerName=@"SPhotoView";
 //伺服器設定
 static NSString *const s_AppId = @"FA00IM_iOS";
 static NSString *const s_ServerSite = @"smuat.megatime.com.tw/WebServiceSsl";
-
+//ios版本
+#define IsIOS8Later [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0
 #endif
